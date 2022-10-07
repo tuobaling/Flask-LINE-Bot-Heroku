@@ -117,8 +117,8 @@ app = Flask(__name__)
 
 from config import * 
 
-line_bot_api = LineBotApi(os.environ.get(channel_access_token))
-handler = WebhookHandler(os.environ.get(channel_secret))
+line_bot_api = LineBotApi(channel_access_token)
+handler = WebhookHandler(channel_secret)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -138,40 +138,42 @@ def callback():
         return "OK"
 
 
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    get_message = event.message.text
-
-    # Send To Line
-    reply = TextSendMessage(text=f"{get_message}")
-    line_bot_api.reply_message(event.reply_token, reply)
-
 #@handler.add(MessageEvent, message=TextMessage)
 #def handle_message(event):
-#    if event.source.user_id =='Udeadbeefdeadbeefdeadbeefdeadbeef':
-#        return 'OK'
-#    #if event.message.text[:3] == "@翻英":
-#    #    content = translate_text(event.message.text[3:], "en")
-#    #    message = TextSendMessage(text=content)
-#    #    line_bot_api.reply_message(event.reply_token, message)
-#    #if event.message.text[:3] == "@翻日":
-#    #    content = translate_text(event.message.text[3:] , "ja")
-#    #    message = TextSendMessage(text=content)
-#    #    line_bot_api.reply_message(event.reply_token, message)
-#    #if event.message.text[:3] == "@翻中":
-#    #    content = translate_text(event.message.text[3:] , "zh-tw")
-#    #    message = TextSendMessage(text=content)
-#    #    line_bot_api.reply_message(event.reply_token, message)
-#    #if event.message.text[:2].upper() == "@K":
-#    #    input_word = event.message.text.replace(" ","") #合併字串取消空白
-#    #    stock_name = input_word[2:6] #2330
-#    #    start_date = input_word[6:] #2020-01-01
-#    #    content = plot_stcok_k_chart(IMGUR_CLIENT_ID,stock_name,start_date)
-#    #    message = ImageSendMessage(original_content_url=content,preview_image_url=content)
-#    #    line_bot_api.reply_message(event.reply_token, message)
+#    get_message = event.message.text
 
-#    else: line_bot_api.reply_message(event.reply_token,
-#                                     TextSendMessage(text=event.message.text))
+#    # Send To Line
+#    reply = TextSendMessage(text=f"{get_message}")
+#    line_bot_api.reply_message(event.reply_token, reply)
+
+IMGUR_CLIENT_ID = imgur_client_id
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    if event.source.user_id =='Udeadbeefdeadbeefdeadbeefdeadbeef':
+        return 'OK'
+    if event.message.text[:3] == "@翻英":
+        content = translate_text(event.message.text[3:], "en")
+        message = TextSendMessage(text=content)
+        line_bot_api.reply_message(event.reply_token, message)
+    if event.message.text[:3] == "@翻日":
+        content = translate_text(event.message.text[3:] , "ja")
+        message = TextSendMessage(text=content)
+        line_bot_api.reply_message(event.reply_token, message)
+    if event.message.text[:3] == "@翻中":
+        content = translate_text(event.message.text[3:] , "zh-tw")
+        message = TextSendMessage(text=content)
+        line_bot_api.reply_message(event.reply_token, message)
+    if event.message.text[:2].upper() == "@K":
+        input_word = event.message.text.replace(" ","") #合併字串取消空白
+        stock_name = input_word[2:6] #2330
+        start_date = input_word[6:] #2020-01-01
+        content = plot_stcok_k_chart(IMGUR_CLIENT_ID,stock_name,start_date)
+        message = ImageSendMessage(original_content_url=content,preview_image_url=content)
+        line_bot_api.reply_message(event.reply_token, message)
+
+    else: line_bot_api.reply_message(event.reply_token,
+                                     TextSendMessage(text=event.message.text))
 
 #@handler.add(MessageEvent, message=TextMessage)
 #def handle_message(event):
