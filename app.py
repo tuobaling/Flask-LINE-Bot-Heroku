@@ -112,7 +112,7 @@ from flask import Flask, abort, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-from googletrans import Translator
+#from googletrans import Translator
 
 app = Flask(__name__)
 
@@ -138,15 +138,15 @@ def callback():
 
         return "OK"
 
-def translate_text(text,dest='en'):
-    """以google翻譯將text翻譯為目標語言
+#def translate_text(text,dest='en'):
+#    """以google翻譯將text翻譯為目標語言
 
-    :param text: 要翻譯的字串，接受UTF-8編碼。
-    :param dest: 要翻譯的目標語言，參閱googletrans.LANGCODES語言列表。
-    """
-    translator = Translator()
-    result = translator.translate(text, dest).text
-    return result
+#    :param text: 要翻譯的字串，接受UTF-8編碼。
+#    :param dest: 要翻譯的目標語言，參閱googletrans.LANGCODES語言列表。
+#    """
+#    translator = Translator()
+#    result = translator.translate(text, dest).text
+#    return result
 
 
 #@handler.add(MessageEvent, message=TextMessage)
