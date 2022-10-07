@@ -14,6 +14,6 @@ urllib3==1.26.2; python_version >= "2.7" and python_full_version < "3.0.0" or py
 werkzeug==1.0.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 apscheduler==3.6.3
 googletrans==3.0.0
-yfinace
+yfinance
 pandas_datareader==0.9.0rc1
 pyimgur
