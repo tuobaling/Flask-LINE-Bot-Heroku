@@ -164,8 +164,8 @@ def handle_message(event):
     if event.source.user_id =='Udeadbeefdeadbeefdeadbeefdeadbeef':
         return 'OK'
     if event.message.text[:3] == "@Â½­^":
-        content = translate_text(event.message.text[3:], "en")
-        message = TextSendMessage(text=content)
+        #content = translate_text(event.message.text[3:], "en")
+        message = TextSendMessage(text=event.message.text[3:])
         line_bot_api.reply_message(event.reply_token, message)
     #if event.message.text[:3] == "@Â½¤é":
     #    content = translate_text(event.message.text[3:] , "ja")
